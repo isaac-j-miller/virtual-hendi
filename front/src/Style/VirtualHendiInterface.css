@@ -1,0 +1,30 @@
+#main-virtual-hendi-interface-container{
+    display: flex;
+    flex-direction: row;
+}
+#hendi-instrument{
+    position: relative;
+}
+#temperature-controller{
+    /* position: absolute; */
+    top: 80px;
+    right: 100px;
+    z-index:10;
+}
+#control-box{
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+}
+.instrument-label-readout{
+    background-color: lightgray;
+    border: double black 1px;
+    padding: 0.5em;
+    margin: 0.5em;
+    font-family: 'digital', monospace;
+}
+.instrument-label{
+    font-weight: bold;
+    font-size: 2em;
+    font-style: italic;
+}

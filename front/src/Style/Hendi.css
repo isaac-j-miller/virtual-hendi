@@ -1,0 +1,107 @@
+.hendi-component{
+    position: absolute;
+    z-index:1;
+    transition: ease-in-out 1s;
+    width:100%;
+}
+.hendi-box{
+    width: 128vh;
+    height: 80vh;
+    position: absolute;
+    border: solid black 1px;
+    border-radius: 1em;
+    margin: 1em;
+}
+.area-div{
+    position: absolute;
+    z-index:7;
+    /* border: dotted red 1px; */
+    border-radius: 4px;
+}
+.area-div:hover{
+    background-color: rgba(99,245,66,0.25);
+}
+#hendi-ch-clickable{
+    top:0%;
+    left:79%;
+    width:6%;
+    height:63%;
+}
+#hendi-stark-clickable{
+    top:65%;
+    left:32%;
+    width:17%;
+    height:5%;
+}
+#hendi-detection-clickable{
+    border-radius: 50%;
+    top:68%;
+    left:15.25%;
+    width:26%;
+    height:39%;
+    transform: translate(-50%,-50%);
+}
+#hendi-doping-clickable{
+    top:50.5%;
+    left:34.5%;
+    width:23.5%;
+    height:34.5%;
+}
+#hendi-source-clickable{
+    top:36.5%;
+    left:63.5%;
+    width:36.5%;
+    height:62%;
+}
+#hendi-quad-clickable{
+    top:0%;
+    left:10%;
+    width:10%;
+    height:72%;
+}
+#hendi-laserbeam-clickable{
+    top:67.5%;
+    left:0%;
+    width:73%;
+    height:1%;
+}
+#hendi-skimmer-clickable{
+    top:65%;
+    left:63%;
+    width:3%;
+    height:6%;
+}
+#hendi-canister-clickable{
+    top:88%;
+    left:16%;
+    width:10%;
+    height:38%;
+}
+#hendi-nozzle-clickable{
+    top:63%;
+    left:73%;
+    width:15%;
+    height:10%;
+}
+.transparent{
+    opacity: 0.25;
+}
+#hendi-bg{
+    z-index: 0;
+}
+#hendi-fg{
+    z-index: 4;
+}
+#hendi-ch{
+    z-index:3;
+}
+#hendi-ocs-canister{
+    z-index:5;
+}
+#hendi-stark{
+}
+#hendi-quad{
+   
+}
+#hendi-laserbeam{
+}

@@ -1,0 +1,10 @@
+@font-face{
+    font-family: "digital";
+    src:url('/fonts/digital-7 (mono).ttf');
+}
+.digital-readout{
+    font-family: 'digital', monospace;
+    background-color: black;
+    color: greenyellow;
+    font-size: 4em;
+}

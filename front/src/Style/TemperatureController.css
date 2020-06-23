@@ -1,0 +1,4 @@
+.instrument-label{
+    display: flex;
+    flex-direction: column;
+}

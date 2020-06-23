@@ -1,0 +1,7 @@
+.knob{
+    position: absolute;
+    background-color: green;
+    height: 64px;
+    width: 64px;
+    z-index:100;
+}

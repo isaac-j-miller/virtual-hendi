@@ -1,0 +1,23 @@
+.digital-readout-adjustable{
+    display: flex;
+    flex-direction:row;
+}
+.button-container{
+    display: flex;
+    flex-direction:column;
+    
+}
+@font-face{
+    font-family: "digital";
+    src:url('/fonts/digital-7 (mono).ttf');
+}
+.button-container>button{
+    flex-grow: 1;
+    font-family: 'digital', monospace;
+    background-color: black;
+    color: greenyellow;
+    font-size: 1em;
+}
+.button-container>button:hover{
+    background-color: darkgrey;
+}

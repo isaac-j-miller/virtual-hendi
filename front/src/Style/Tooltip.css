@@ -1,0 +1,13 @@
+.tooltip{
+    position: fixed;
+    border: solid black 1px;
+    background-color: white;
+    z-index:8;
+    max-width: 40vw;
+    border-radius: 1em;
+    padding: 0.5em;
+    margin:1em;
+}
+.tooltip>label{
+    font-weight: bold;
+}
