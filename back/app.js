@@ -6,7 +6,6 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const staticRouter = require('./routes/static');
-const usersRouter = require('./routes/users');
 const spectrumRouter = require('./routes/spectrum')
 
 const app = express();
@@ -22,8 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '..', 'front', 'build', 'static')));
 app.use('/', indexRouter);
 app.use('/virtual-hendi/**', staticRouter);
-app.use('/spectrum', spectrumRouter)
-app.use('/users', usersRouter);
+app.use('/spectrum', spectrumRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
