@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 apt install nginx nodejs npm
 cd front
 npm install
