@@ -1,5 +1,5 @@
 #!/bin/bash
-yum install nginx nodejs npm
+yum install nodejs npm --enablerepo=epel
 cd front
 npm install
 cd ../back
