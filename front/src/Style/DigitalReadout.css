@@ -7,4 +7,14 @@
     background-color: black;
     color: greenyellow;
     font-size: 4em;
+    display: inline-block;
+    vertical-align: middle;
+    height:1em;
+}
+input.digital-readout{
+    padding-bottom:0.25em;
+}
+label.digital-readout{
+    padding-top:0.125em;
+    padding-bottom:0.125em;
 }
