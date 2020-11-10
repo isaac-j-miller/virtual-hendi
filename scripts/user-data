@@ -1,11 +1,9 @@
 #!/bin/bash
 sudo -i
-apt update
-apt install git
+apt update -y
+apt install git -y
 git clone https://github.com/isaac-j-miller/virtual-hendi
 cd virtual-hendi
-git reset --hard origin
-git pull
 chmod +x scripts/*
 scripts/prepare
 service nginx start

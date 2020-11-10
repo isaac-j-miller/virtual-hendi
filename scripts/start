@@ -1,3 +1,5 @@
 #!/bin/bash
 cd front
-npm run build & node ../back/bin/www
+service nginx force-reload
+npm run build 
+node ../back/bin/www &
