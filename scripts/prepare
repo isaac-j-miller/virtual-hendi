@@ -8,6 +8,7 @@ cd ..
 cp scripts/default /etc/nginx/sites-enabled/default
 cp scripts/virtual-hendi.service /etc/init.d/virtual-hendi.service
 chmod +x /etc/init.d/virtual-hendi.service
-update-rc.d -f virtual-hendi.service defaults
+update-rc.d virtual-hendi.service defaults
+update-rc.d virtual-hendi.service enable
 service nginx enable
 service virtual-hendi.service enable
