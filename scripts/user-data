@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo -i
 apt update
 apt install git
 git clone https://github.com/isaac-j-miller/virtual-hendi

@@ -1,5 +1,5 @@
 #!/bin/bash
-apt install nodejs npm nginx
+apt install -y nodejs npm nginx
 cd front
 npm install
 cd ../back
