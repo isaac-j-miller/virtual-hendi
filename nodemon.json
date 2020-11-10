@@ -1,0 +1,5 @@
+{
+    "events":{
+        "restart": "scripts/rebuild-front"
+    }
+}

@@ -3,6 +3,7 @@
     z-index:1;
     transition: ease-in-out 1s;
     width:100%;
+    height:100%;
 }
 .hendi-box{
     width: 128vh;
@@ -72,10 +73,13 @@
     height:6%;
 }
 #hendi-canister-clickable{
-    top:88%;
+    bottom:0%;
     left:16%;
     width:10%;
-    height:38%;
+    height:24%;
+    border:none;
+    border-top-left-radius:48%;
+    border-top-right-radius:48%;
 }
 #hendi-nozzle-clickable{
     top:63%;

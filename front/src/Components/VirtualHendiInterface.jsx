@@ -3,6 +3,7 @@ import Hendi from './Hendi';
 import '../Style/VirtualHendiInterface.css'
 import TemperatureController from './TemperatureController'
 import WavelengthController from './WavelengthController'
+import Spinner from './Spinner'
 import Spectrum from './Spectrum'
 import axios from 'axios'
 
@@ -18,7 +19,8 @@ export default class VirtualHendiInterface extends Component{
         this.state={
             fgState:true,
             toggleFgTitle:'See Inside the Instrument',
-            spectrum:""
+            spectrum:"",
+            loadingSpectrum:false,
         }
     }
     componentDidMount(){
@@ -42,10 +44,13 @@ export default class VirtualHendiInterface extends Component{
             ...this.lambdaRef.current.state
         }
         console.log(params);
-        const url = `${window.location.origin}/spectrum/${params.temperature}/${params.min_lambda}/${params.max_lambda}`
+        const url = `${window.location.origin}/spectrum/${params.temperature}/${params.min_lambda}/${params.max_lambda}`;
+        console.log("requesting spectrum");
+        this.setState({loadingSpectrum:true});
         axios.get(url).then(resp=>{
             const spectrum = resp.data.data;
-            this.setState({spectrum});
+            console.log("received spectrum");
+            this.setState({spectrum, loadingSpectrum:false});
         })
     }
     render(){
@@ -57,7 +62,7 @@ export default class VirtualHendiInterface extends Component{
                     <TemperatureController id='temperature-controller' parent={this} ref={this.tempRef}/>
                     <WavelengthController id='wavelength-controller' parent={this} ref={this.lambdaRef}/>
                     <button onClick={this.getSpectrum.bind(this)}>Run Spectrum</button>
-                    {this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
+                    {this.state.loadingSpectrum? <Spinner/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
                 </div>
             </div>
         )

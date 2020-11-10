@@ -1,36 +1,36 @@
-import React, {Component} from 'react';
+import React, { Component} from 'react';
 import Dygraph from 'dygraphs';
-import '../Style/VirtualHendiInterface.css'
+import '../Style/VirtualHendiInterface.css';
+import { saveAs } from 'file-saver';
 export default class Spectrum extends Component{
     constructor(props){
         super(props);
         this.chartRef = React.createRef();
-        this.state = {
-            modal: true
-        }
         this.d = undefined;
+        this.generateSpectrum = this.generateSpectrum.bind(this);
+        this.downloadSpectrum = this.downloadSpectrum.bind(this);
+    }
+    generateSpectrum() {
+        return new Dygraph(this.chartRef.current, this.props.data, {
+            animatedZooms:true,
+            xlabel:"Wavelength (cm<sup>-1</sup>)",
+            ylabel:"Intensity",
+            width: 'auto',
+            height: 'auto',
+            xValueParser: parseFloat
+        });
     }
     componentDidMount() {
-        try {
-            if(this.props.data) {
-                this.d = new Dygraph(this.chartRef.current, this.props.data, {
-                    animatedZooms:true,
-                    xlabel:"Wavelength (cm<sup>-1</sup>)",
-                    ylabel:"Intensity",
-                    width: 'auto',
-                    height: 'auto'
-                });
-            }
-        }
-        catch(err) {
-            console.log(this.props.data);
-        }
+        this.d = this.generateSpectrum();
     }
-    handleCloseModal() {
-        this.setState({modal:false})
+    downloadSpectrum() {
+        const blob = new Blob([this.props.data], {type: 'text/plain;charset=utf-8'});
+        saveAs(blob, "spectrum.csv");
     }
     render(){
-        return <div id="spectrum" ref={this.chartRef}/>
-        
+        return <div>
+            <div id="spectrum" ref={this.chartRef}/>
+            <button onClick={this.downloadSpectrum}>Download Spectrum</button>
+            </div>
     }
 }

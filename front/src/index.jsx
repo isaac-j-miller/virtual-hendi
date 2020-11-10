@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+document.title="Virtual HENDI Spectrometer"
 ReactDOM.render(
   <React.StrictMode>
     <App />

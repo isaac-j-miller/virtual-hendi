@@ -1,0 +1,3 @@
+#!/bin/bash
+cd ${VIRTUAL_HENDI_ROOT}/front
+npm run build 

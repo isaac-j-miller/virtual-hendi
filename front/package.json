@@ -7,16 +7,12 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.0",
-    "css-element-queries": "^1.2.3",
     "dygraphs": "^2.1.0",
+    "file-saver": "^2.0.2",
     "nodemon": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-draggable-resizable-modal": "^0.1.2",
-    "react-dygraphs": "0.0.1",
-    "react-resizable": "^1.11.0",
-    "react-scripts": "3.4.1",
-    "victory": "^35.3.4"
+    "react-scripts": "3.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
