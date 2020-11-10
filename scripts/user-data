@@ -6,4 +6,6 @@ git clone https://github.com/isaac-j-miller/virtual-hendi
 cd virtual-hendi
 chmod +x scripts/*
 scripts/prepare
+service nginx start
+service virtual-hendi start
 
