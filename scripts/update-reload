@@ -1,4 +1,8 @@
 #!/bin/bash
 git pull
 cd front
+npm install
 npm run build
+cd ../back
+npm install
+service virtual-hendi force-reload
