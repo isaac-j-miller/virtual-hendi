@@ -1,8 +1,8 @@
 #!/bin/bash
-sudo -i
 apt update
 apt install git
-git clone https://github/isaac-j-miller/virtual-hendi
+git clone https://github.com/isaac-j-miller/virtual-hendi
 cd virtual-hendi
+chmod +x scripts/*
 scripts/prepare
 
