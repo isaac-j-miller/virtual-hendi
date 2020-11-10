@@ -1,6 +1,13 @@
 #!/bin/bash
-yum install nodejs npm --enablerepo=epel
+apt install nodejs npm nginx
 cd front
 npm install
 cd ../back
 npm install
+cd ..
+cp scripts/default /etc/nginx/sites-enabled/default
+cp scripts/virtual-hendi.service /etc/init.d/virtual-hendi.service
+chmod +x /etc/init.d/virtual-hendi.service
+update-rc.d -f virtual-hendi.service defaults
+service nginx enable
+service virtual-hendi.service enable
