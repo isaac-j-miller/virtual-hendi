@@ -30,7 +30,7 @@ export default class Spectrum extends Component{
     render(){
         return <div>
             <div id="spectrum" ref={this.chartRef}/>
-            <button onClick={this.downloadSpectrum}>Download Spectrum</button>
+                <button onClick={this.downloadSpectrum}>Download Spectrum</button>
             </div>
     }
 }

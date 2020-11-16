@@ -6,16 +6,28 @@
 #hendi-instrument{
     position: relative;
 }
+@media only screen and (max-width: 768px){
+    #main-virtual-hendi-interface-container{
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    #hendi-instrument{
+        width: 95vw;
+    }
+    
+}
+
 #temperature-controller{
-    /* position: absolute; */
-    top: 80px;
-    right: 100px;
     z-index:10;
 }
 #control-box{
     margin-top: 2em;
     display: flex;
     flex-direction: column;
+}
+.temp-controller{
+    max-width:95vw;
 }
 .instrument-label-readout{
     background-color: lightgray;

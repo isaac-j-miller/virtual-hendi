@@ -13,6 +13,15 @@
     border-radius: 1em;
     margin: 1em;
 }
+@media only screen and (max-width: 768px){
+    .hendi-box{
+        width:95vw;
+        height:59.375vw;
+        margin:1.25vw;
+    }
+    
+    
+}
 .area-div{
     position: absolute;
     z-index:7;
