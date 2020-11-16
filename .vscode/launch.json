@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Python: interpolate",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/back/src/python/interpolate.py",
+            "args": [
+                "/home/millerij/Documents/github/virtual-hendi/back/spectra/generated/OCS_13.5K.dat",
+                "13.5",
+                "/home/millerij/Documents/github/virtual-hendi/back/spectra/generated/OCS_16K.dat",
+                "16",
+                "14",
+                "/home/millerij/Documents/github/virtual-hendi/back/spectra/generated/OCS_14K.dat"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}

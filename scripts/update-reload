@@ -5,4 +5,7 @@ npm install
 npm run build
 cd ../back
 npm install
+cd src/python
+source env/bin/activate
+python3 -m pip install -r requirements.txt
 service virtual-hendi force-reload
