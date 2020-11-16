@@ -33,7 +33,11 @@ router.get('/:temperature/:min/:max', async function(req, res, next) {
     const python = `${process.env["VH_ROOT"]}/back/src/python/env/bin/python3`
     const interpolator = `${process.env["VH_ROOT"]}/back/src/python/interpolate.py`
     const cmd = `${python} ${interpolator} "${lower_f}" ${lower_temp} "${upper_f}" ${upper_temp} ${temperature} ${path.join(__dirname,'..', 'spectra','generated',`OCS_${temperature}K.dat`)}`;
-    await exec(cmd);
+    try{
+        await exec(cmd);
+    } catch(err) {
+        console.log(err);
+    }
   }
   fs.readFile(filePath,(err, rawData) => {
     if(err) {
