@@ -30,9 +30,8 @@ router.get('/:temperature/:min/:max', async function(req, res, next) {
             break;
         }
     }
-    const python = `${process.env["VH_ROOT"]}/back/src/python/env/bin/python3`
     const interpolator = `${process.env["VH_ROOT"]}/back/src/python/interpolate.py`
-    const cmd = `${python} ${interpolator} "${lower_f}" ${lower_temp} "${upper_f}" ${upper_temp} ${temperature} ${path.join(__dirname,'..', 'spectra','generated',`OCS_${temperature}K.dat`)}`;
+    const cmd = `python3 ${interpolator} "${lower_f}" ${lower_temp} "${upper_f}" ${upper_temp} ${temperature} ${path.join(__dirname,'..', 'spectra','generated',`OCS_${temperature}K.dat`)}`;
     try{
         await exec(cmd);
     } catch(err) {
