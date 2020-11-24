@@ -1,0 +1,7 @@
+#!/bin/bash
+cd back/src/python
+source bin/activate
+cd -
+cd front
+npm run build 
+node ../back/bin/www
