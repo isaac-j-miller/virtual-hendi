@@ -1,7 +1,7 @@
 # Virtual HENDI spectrometer
 This web app is intended to provide users with an overview of the anatomy of a Helium Nanodroplet Isolation Spectrometer and to allow users to experiment with changing parameters such as the nozzle temperature to better understand the effect of these parameters on the spectra collected by the instrument. The user can simulate collecting spectra at a variety of nozzle temperatures ranging between 13.5 and 20 K.
 
-This application is currently hosted at [http://virtual-hendi.isaac-j-miller.com](http://virtual-hendi.isaac-j-miller.com).
+A demo of this application is currently hosted at [http://virtual-hendi.isaac-j-miller.com](http://virtual-hendi.isaac-j-miller.com).
 
 # Usage
 In order to view a tooltip about a component of the instrument, hover your mouse over it. In order to view inside the instrument, click the "See inside the instrument" button in the top right corner.
@@ -26,3 +26,6 @@ Also, if running on windows, be sure to use [git bash](https://gitforwindows.org
 # Running on a server
 This application requires Ubuntu 20.04 to run. An older or newer version might work, but it has only been tested on 20.04. After instantiating the server, run scripts/user-data in the # directory (`sudo -i`). Since the repo has not been cloned yet, you will need to copy the contents of this script to the server and then run it. This script clones the repo and configures the server to host the site. It configures nginx to listen on port 80 and redirect traffic to port 3000 so that the web app can be accessed from the server's public IP.
 To update the version on the server, ssh into the server and `sudo -i`. Then run `scripts/update-reload`. I have had some issues with the process not properly stopping, so it may be necessary to determine the PID of the process using port 3000 and manually kill it before running `scripts/update-reload`.
+
+# Pull Requests
+If you would like to make changes to this repo, please submit a pull request. I will review it in as timely a manner as possible and then update the server that I'm using to host the demo at [http://virtual-hendi.isaac-j-miller.com](http://virtual-hendi.isaac-j-miller.com) to reflect the changes if I decide to merge the pull request.
