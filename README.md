@@ -13,6 +13,15 @@ You may interact with the spectrum in a few ways:
 # Running locally
 To run the application locally, after cloning the repository, cd into the root directory (i.e. `virtual-hendi/`) and run `scripts/check-env`. This ensures that all the necessary tools are installed. Then, run `scripts/start-local`. This builds the frontend and starts the server, which listens on port 3000. Once this script is running, you may visit the site locally at [http://localhost:3000](http://localhost:3000). 
 If you make changes to the front end while running the site in this way, you must re-build the frontend by running `scripts/rebuild-front`.
+If running in a non-ubuntu environment, you may have to make changes to the `scripts/check-env` script, as it uses `apt` to install the necessary packages. The script does the following:
+- install Python 3.8
+- create a virtual environment in `back/src/python/env`
+- activate `env`
+- install python modules using `python -m pip install requirements.txt`, where `requirements.txt` is in `back/src/python`
+- install nodejs, npm
+- cd into `front` and run `npm install` to install the node modules there
+- cd into `back` and run `npm install` to install the node modules there
+Also, if running on windows, be sure to use [git bash](https://gitforwindows.org/), rather than powershell or cmd.
 
 # Running on a server
 This application requires Ubuntu 20.04 to run. An older or newer version might work, but it has only been tested on 20.04. After instantiating the server, run scripts/user-data in the # directory (`sudo -i`). Since the repo has not been cloned yet, you will need to copy the contents of this script to the server and then run it. This script clones the repo and configures the server to host the site. It configures nginx to listen on port 80 and redirect traffic to port 3000 so that the web app can be accessed from the server's public IP.
