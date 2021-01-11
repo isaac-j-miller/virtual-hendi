@@ -6,6 +6,7 @@ import WavelengthController from './WavelengthController'
 import Spinner from './Spinner'
 import Spectrum from './Spectrum'
 import axios from 'axios'
+import Instructions from './Instructions';
 
 export default class VirtualHendiInterface extends Component{
     constructor(props){
@@ -55,16 +56,22 @@ export default class VirtualHendiInterface extends Component{
     }
     render(){
         return (
-            <div id='main-virtual-hendi-interface-container'>
-                <Hendi id='hendi-instrument' ref={this.hendiRef}/>
-                <div id='control-box'>
-                    <button onClick={this.hideForeground}>{this.state.toggleFgTitle}</button>
-                    <TemperatureController id='temperature-controller' parent={this} ref={this.tempRef}/>
-                    <WavelengthController id='wavelength-controller' parent={this} ref={this.lambdaRef}/>
-                    <button onClick={this.getSpectrum.bind(this)}>Run Spectrum</button>
-                    {this.state.loadingSpectrum? <Spinner/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
+                <div id='main-virtual-hendi-interface-container'>
+                    <Hendi id='hendi-instrument' ref={this.hendiRef}/>
+                    <div id='control-box'>
+                        <button onClick={this.hideForeground}>{this.state.toggleFgTitle}</button>
+                        <TemperatureController id='temperature-controller' parent={this} ref={this.tempRef}/>
+                        <WavelengthController id='wavelength-controller' parent={this} ref={this.lambdaRef}/>
+                        <button onClick={this.getSpectrum.bind(this)}>Run Spectrum</button>
+                        {this.state.loadingSpectrum? <Spinner/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
+                    </div>
+                    <div className="box">
+                        <h1 className="header">Usage</h1>
+                            <p className="instructions">
+                            In order to view a tooltip about a component of the instrument, hover your mouse over it. In order to view inside the instrument, click the "See inside the instrument" button in the top right corner. To run a spectrum, specify the wavelength range and the temperature using the controls and then click the "Run Spectrum" button. A spectrum should appear after a few seconds. If you wish to change the parameters, do so and then click "Run Spectrum" again, as it does not update automatically. Once the spectrum is loaded, you may download the spectrum as a .csv file. You may interact with the spectrum in a few ways: Zoom in on a section by pressing down the left mouse button, dragging across the section, and then releasing. Scrub the spectrum by pressing down the left mouse button and dragging across the spectrum while pressing the "shift" key.Reset the view by double-clicking on the spectrum.
+                            </p>
+                    </div>
                 </div>
-            </div>
         )
     }
 }
