@@ -1,0 +1,28 @@
+.box {
+    box-sizing: border-box;
+    border: solid black 1px;
+    background-color: white;
+    z-index: 10;
+    max-width: 40vw;
+    border-radius: 1em;
+    padding: 0.2em;
+    margin:1em;
+  }
+  
+  .header {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: normal;
+    font-size: medium;
+  }
+  
+  .instructions {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: normal;
+    font-size: small;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: normal;
+  }
+  

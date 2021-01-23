@@ -6,6 +6,7 @@ import WavelengthController from './WavelengthController'
 import Spinner from './Spinner'
 import Spectrum from './Spectrum'
 import axios from 'axios'
+import Instructions from './Instructions';
 
 export default class VirtualHendiInterface extends Component{
     constructor(props){
@@ -55,16 +56,18 @@ export default class VirtualHendiInterface extends Component{
     }
     render(){
         return (
-            <div id='main-virtual-hendi-interface-container'>
-                <Hendi id='hendi-instrument' ref={this.hendiRef}/>
-                <div id='control-box'>
-                    <button onClick={this.hideForeground}>{this.state.toggleFgTitle}</button>
-                    <TemperatureController id='temperature-controller' parent={this} ref={this.tempRef}/>
-                    <WavelengthController id='wavelength-controller' parent={this} ref={this.lambdaRef}/>
-                    <button onClick={this.getSpectrum.bind(this)}>Run Spectrum</button>
-                    {this.state.loadingSpectrum? <Spinner/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
+                <div id='main-virtual-hendi-interface-container'>
+                    <Hendi id='hendi-instrument' ref={this.hendiRef}/>
+                    <div id='control-box'>
+                        <button onClick={this.hideForeground}>{this.state.toggleFgTitle}</button>
+                        <TemperatureController id='temperature-controller' parent={this} ref={this.tempRef}/>
+                        <WavelengthController id='wavelength-controller' parent={this} ref={this.lambdaRef}/>
+                        <button onClick={this.getSpectrum.bind(this)}>Run Spectrum</button>
+                        {this.state.loadingSpectrum? <Spinner/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
+                        <Instructions></Instructions>
+                    </div>
+                    
                 </div>
-            </div>
         )
     }
 }

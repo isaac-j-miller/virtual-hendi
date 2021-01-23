@@ -3,7 +3,7 @@ import VirtualHendiInterface from './Components/VirtualHendiInterface';
 
 function App() {
   return (
-    <VirtualHendiInterface/>
+    <VirtualHendiInterface />
   );
 }
 
