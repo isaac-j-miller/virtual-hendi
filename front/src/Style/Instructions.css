@@ -1,9 +1,6 @@
 .box {
     box-sizing: border-box;
     border: solid black 1px;
-    position: absolute;
-    left: 30px;
-    top: 85vh;
     background-color: white;
     z-index: 10;
     max-width: 40vw;
