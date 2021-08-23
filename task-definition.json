@@ -34,7 +34,7 @@
       "healthCheck": {
         "command": ["/health"],
         "interval": 300,
-        "timeout": 5000,
+        "timeout": 60,
         "retries": 10,
         "startPeriod": 0
       }
