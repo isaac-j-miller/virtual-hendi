@@ -7,7 +7,6 @@
       "image": "904336963348.dkr.ecr.us-east-1.amazonaws.com/virtual-hendi-main:latest",
       "cpu": 256,
       "memory": 512,
-      "links": [""],
       "portMappings": [
         {
           "containerPort": 3000,
