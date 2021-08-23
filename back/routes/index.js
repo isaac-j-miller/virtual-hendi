@@ -7,4 +7,8 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(__dirname, "../..", "front", "build", "index.html"));
 });
 
+router.get('/health', (req, res) => {
+  res.send({healthy: true})
+})
+
 module.exports = router;

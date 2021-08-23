@@ -1,0 +1,4 @@
+docker stop vh-main-app || true
+docker rm vh-main-app || true
+scripts/build-docker-local
+scripts/run-docker
