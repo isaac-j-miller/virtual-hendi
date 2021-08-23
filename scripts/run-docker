@@ -1,0 +1,4 @@
+#!/bin/bash
+docker stop vh-main-app || true
+docker create --name vh-main-app -p 3000:3000 vh-main 
+docker start vh-main-app
