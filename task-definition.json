@@ -1,12 +1,16 @@
 {
   "family": "virtual-hendi",
   "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": 256,
+  "memory": 512,
+  "taskRoleArn": "arn:aws:iam::904336963348:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::904336963348:role/ecsTaskExecutionRole",
   "containerDefinitions": [
     {
       "name": "virtual-hendi-app",
       "image": "904336963348.dkr.ecr.us-east-1.amazonaws.com/virtual-hendi-main:latest",
-      "cpu": 256,
-      "memory": 512,
+
       "portMappings": [
         {
           "containerPort": 3000,
@@ -21,16 +25,9 @@
           "value": "3000"
         }
       ],
-      "privileged": true,
+      "privileged": false,
       "readonlyRootFilesystem": true,
       "interactive": true,
-      "pseudoTerminal": true,
-      "logConfiguration": {
-        "logDriver": "syslog",
-        "options": {
-          "KeyName": ""
-        }
-      },
       "healthCheck": {
         "command": ["/health"],
         "interval": 300,

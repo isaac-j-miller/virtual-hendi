@@ -72,7 +72,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
-          container-name: virtual-hendi-container
+          container-name: virtual-hendi-app
           image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
