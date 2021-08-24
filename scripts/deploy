@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "uploading to s3..."
+aws s3 cp dist/web/* s3://virtual-hendi/web --recursive
+aws s3 cp dist/virtual-hendi/* s3://virtual-hendi/virtual-hendi --recursive
+echo "updating lambda function..."
+aws lambda update-function-code --function-name interpolator --zip-file fileb://dist/lambda/deployment-package.zip

@@ -1,0 +1,23 @@
+#!/bin/bash
+set -euo pipefail
+VH_ROOT=$(scripts/get-root)
+echo "building frontend"
+cd $VH_ROOT/front
+# npm install
+# PUBLIC_URL=. npm run build 
+cd ..
+
+rm -rf dist || true
+mkdir dist
+cp -a ./front/build dist/web
+
+echo "copying static assets"
+cp -a ./front/public dist/virtual-hendi
+
+echo "copying lambda code..."
+mkdir dist/lambda
+cp -a interpolator/* dist/lambda
+cd dist/lambda
+rm -rf spectra/generated
+zip -r deployment-package.zip .
+echo "created lambda deployment package in ./dist/lambda/deployment-package.zip"

@@ -1,3 +1,4 @@
 #!/bin/bash
-cd ./front
+cd $(scripts/get-root)/front
+npm install
 npm run build 
