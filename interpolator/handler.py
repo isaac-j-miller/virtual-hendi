@@ -2,9 +2,8 @@ import pandas as pd
 import numpy as np
 import os
 import json
-import logging
 import boto3
-from botocore.exceptions import ClientError
+from abc import ABC, abstractmethod
 
 
 def toInt(idx, precision):
@@ -129,6 +128,71 @@ class Interpolator:
                                 data=self.data["intensity"])
         dataToWrite.to_csv(filename, sep="\t", header=False)
 
+class FileManagerInterface(ABC):
+    def __init__(self):
+        pass
+    @abstractmethod
+    def doesExactFileExist(self, key: str) -> bool:
+        return False
+
+    @abstractmethod
+    def writeFile(self, key: str, data: str):
+        pass
+
+    @abstractmethod
+    def downloadFile(self, key: str, to: str):
+        pass
+
+class FileManager(FileManagerInterface):
+    def __init__(self, rootDir: str):
+        super(self)
+        self.rootDir = rootDir
+    
+    def doesExactFileExist(self, key: str) -> bool:
+        fullPath = os.path.join(self.rootDir, key)
+        return os.path.exists(fullPath)
+
+    def writeFile(self, key: str, data: str):
+        fullPath = os.path.join(self.rootDir, key)
+        with open(fullPath, "w") as f:
+            f.write(data)
+    
+    def downloadFile(self, key: str, to: str):
+        with open(key, "r") as f:
+            data = f.read(f)
+            with open(to, "w") as d:
+                d.write(data)
+
+class S3Manager(FileManagerInterface):
+    def __init__(self, bucketName: str):
+        super(self)
+        self.s3 = boto3.resource('s3')
+        self.bucket = self.s3.Bucket(bucketName)
+    
+    def doesExactFileExist(self, key: str) -> bool:
+        try:
+            obj = self.s3.Object(self.bucket, key)
+            return True
+        except Exception as e:
+            return False
+
+    def writeFile(self, key: str, data: str):
+        self.bucket.put_object(
+            ACL="public-read",
+            Body=data.encode(),
+            ContentType="text/plain",
+            ContentEncoding="utf-8",
+            Key=key
+        )
+    
+    def downloadFile(self, key: str, to: str):
+        self.bucket.download_file(Key=key, Filename=to)
+
+def getManager(cli: bool, rootDir=None) -> FileManagerInterface:
+    if(cli):
+        return FileManager(rootDir)
+    return S3Manager("virtual-hendi")
+
 
 def lambda_handler(event, context):
     print("invoked with ", event, context)
@@ -136,8 +200,17 @@ def lambda_handler(event, context):
     temperature = float(stringTemp)
     mn = float(event["pathParameters"]["min"])
     mx = float(event["pathParameters"]["max"])
-    s3 = boto3.resource('s3')
-    bucket = s3.Bucket('virtual-hendi')
+    cli = False
+    rootDir = None
+    try:
+        cli = event["cli"]
+    except KeyError:
+        cli = False
+    try:
+        rootDir = event["rootDir"]
+    except KeyError:
+        rootDir = False
+    manager = getManager(cli, rootDir)
     temperatures = [
         13.5,
         16,
@@ -151,24 +224,18 @@ def lambda_handler(event, context):
     finalKey = f"spectra{finalFile}"
    
     createdFile = False
-    try:
-        obj = s3.Object("virtual-hendi", finalKey)
-        print("exact temp and range has already been calculated, no need to recalculate")
+    if manager.doesExactFileExist(finalKey):
         return {
-        'statusCode': 200,
-        'headers': json.dumps({"Content-Type": "application/json"}),
-        'body': json.dumps({
-            "url": f"/{finalKey}"
-        })
-    }
-    except Exception as e:
-        print(e)
+            'statusCode': 200,
+            'headers': json.dumps({"Content-Type": "application/json"}),
+            'body': json.dumps({"url": f"/{finalKey}"})
+            }
 
     if temperature in temperatures:
         outputPath = os.path.join("./spectra", f'OCS_{stringTemp}K.dat')
     else:
         try:
-            bucket.download_file(Key=baseFilePath, Filename=outputPath)
+            manager.downloadFile(baseFilePath, outputPath)
             print("fetched previously created file from S3")
         except Exception as e:
             print(f"Error fetching {baseFilePath}", e)
@@ -196,20 +263,8 @@ def lambda_handler(event, context):
     baseFile = finalSpec.toString()
     response = finalSpec.filter(mn, mx)
     if createdFile:
-        bucket.put_object(
-            ACL="public-read",
-            Body=baseFile.encode(),
-            ContentType="text/plain",
-            ContentEncoding="utf-8",
-            Key=baseFilePath
-        )
-    bucket.put_object(
-        ACL="public-read",
-        Body=response.encode(),
-        ContentType="text/plain",
-        ContentEncoding="utf-8",
-        Key=finalKey
-    )
+        manager.writeFile(baseFilePath, baseFile)
+    manager.writeFile(finalKey, response)
     return {
         'statusCode': 200,
         'headers': json.dumps({"Content-Type": "application/json"}),
