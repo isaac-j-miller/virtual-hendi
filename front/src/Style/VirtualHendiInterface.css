@@ -48,6 +48,10 @@
     -moz-animation:spin 3s linear infinite;
     animation:spin 3s linear infinite;
 }
+.error {
+    width: 100px;
+    height: 100px;
+}
 .spinner-container {
     position: relative;
     width: 100%;

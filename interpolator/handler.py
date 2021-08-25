@@ -158,7 +158,7 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'headers': json.dumps({"Content-Type": "application/json"}),
         'body': json.dumps({
-            "url": f"https://virtual-hendi.s3.amazonaws.com/{finalKey}"
+            "url": f"/{finalKey}"
         })
     }
     except Exception as e:
@@ -214,6 +214,6 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'headers': json.dumps({"Content-Type": "application/json"}),
         'body': json.dumps({
-            "url": f"https://virtual-hendi.s3.amazonaws.com/{finalKey}"
+            "url": f"/{finalKey}"
         })
     }

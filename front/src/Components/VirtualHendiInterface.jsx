@@ -7,6 +7,7 @@ import Spinner from './Spinner'
 import Spectrum from './Spectrum'
 import axios from 'axios'
 import Instructions from './Instructions';
+import { Error } from './Error';
 
 export default class VirtualHendiInterface extends Component{
     constructor(props){
@@ -22,6 +23,7 @@ export default class VirtualHendiInterface extends Component{
             toggleFgTitle:'See Inside the Instrument',
             spectrum:"",
             loadingSpectrum:false,
+            spectrumError:false
         }
     }
     componentDidMount(){
@@ -54,7 +56,13 @@ export default class VirtualHendiInterface extends Component{
                 const spectrum = resp.data;
                 console.log("received spectrum");
                 this.setState({spectrum, loadingSpectrum:false});
+            }).catch(reason=>{
+                console.error("error loading spectrum:", reason);
+                this.setState({loadingSpectrum: false, spectrumError: true})
             })
+        }).catch(reason=>{
+            console.error("error triggering lambda:", reason);
+            this.setState({loadingSpectrum: false, spectrumError: true})
         })
     }
     render(){
@@ -66,7 +74,7 @@ export default class VirtualHendiInterface extends Component{
                         <TemperatureController id='temperature-controller' parent={this} ref={this.tempRef}/>
                         <WavelengthController id='wavelength-controller' parent={this} ref={this.lambdaRef}/>
                         <button onClick={this.getSpectrum.bind(this)}>Run Spectrum</button>
-                        {this.state.loadingSpectrum? <Spinner/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
+                        {this.state.loadingSpectrum? <Spinner/> : this.state.spectrumError ? <Error/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
                         <Instructions></Instructions>
                     </div>
                     

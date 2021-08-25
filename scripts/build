@@ -3,8 +3,8 @@ set -euo pipefail
 VH_ROOT=$(scripts/get-root)
 echo "building frontend"
 cd $VH_ROOT/front
-# npm install
-# PUBLIC_URL=. npm run build 
+npm install
+PUBLIC_URL=web npm run build 
 cd ..
 
 rm -rf dist || true
