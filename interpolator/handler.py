@@ -174,9 +174,9 @@ class S3Manager(FileManagerInterface):
     
     def doesExactFileExist(self, key: str) -> bool:
         try:
-            obj = self.s3.Object(self.bucket, key)
+            self.s3.Object(self.bucket, key).load()
             return True
-        except Exception as e:
+        except Exception:
             return False
 
     def writeFile(self, key: str, data: str):
@@ -228,6 +228,7 @@ def lambda_handler(event, context):
    
     createdFile = False
     if manager.doesExactFileExist(finalKey):
+        print(f"Found exact file matching {finalKey}, skipping expensive calculations...")
         return {
             'statusCode': 200,
             'headers': json.dumps({"Content-Type": "application/json"}),
