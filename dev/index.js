@@ -15,17 +15,6 @@ app.get('/', function(req, res, next) {
     res.sendFile(path.join(buildDir, "index.html"));
   });
 
-app.get("/virtual-hendi/**", (req, res) => {
-    const p = decodeURI(req.url)
-    const filePath = path.join(buildDir, path.relative("/virtual-hendi", p))
-    res.sendFile(filePath)
-})
-app.get("/spectra/**", (req, res) => {
-    const p = decodeURI(req.url)
-    const filePath = path.join(buildDir, p)
-    res.sendFile(filePath)
-})
-
 app.get("/interpolator/:temperature/:min/:max", (req, res) =>{
     const {temperature, min, max} = req.params;
     console.log("Received request to interpolate with the following params:", {temperature, min, max});
@@ -59,4 +48,17 @@ app.get("/interpolator/:temperature/:min/:max", (req, res) =>{
         })
     })
 })
+
+app.get("/virtual-hendi/**", (req, res) => {
+    const p = decodeURI(req.url)
+    const filePath = path.join(buildDir, path.relative("/virtual-hendi", p))
+    res.sendFile(filePath)
+})
+app.get("/**", (req, res) => {
+    const p = decodeURI(req.url)
+    const filePath = path.join(buildDir, p)
+    console.log(`GET ${p} -> ${filePath}`)
+    res.sendFile(filePath)
+})
+console.log("listening on http://localhost:3000")
 app.listen(3000);

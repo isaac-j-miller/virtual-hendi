@@ -1,5 +1,10 @@
 {
+    "watch": [
+        "dev/",
+        "front/src/"
+    ],
     "events":{
-        "restart": "scripts/rebuild-front"
-    }
+        "restart": "cd ${VH_ROOT}/front/ && npm run build"
+    },
+    "ext": "js,jsx,json"
 }

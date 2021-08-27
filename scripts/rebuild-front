@@ -1,5 +1,4 @@
 #!/bin/bash
 VH_ROOT=$(scripts/get-root)
 cd "${VH_ROOT}/front"
-npm install
 npm run build 
