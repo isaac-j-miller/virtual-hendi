@@ -25,7 +25,7 @@ export default class VirtualHendiInterface extends Component{
             loadingSpectrum:false,
             spectrumError:false
         }
-        this.baseUrl = window.location.href.includes("localhost:3000") ? "http://localhost:3000" : "http://api.virtual-hendi.isaac-j-miller.com"
+        this.baseUrl = window.location.href.includes("localhost:3000") ? "http://localhost:3000" : "https://api.virtual-hendi.isaac-j-miller.com"
     }
     componentDidMount(){
         this._isMounted=true;
