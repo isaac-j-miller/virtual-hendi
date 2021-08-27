@@ -1,7 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 echo "uploading to s3..."
-s3 rm 
 aws s3 cp dist/web s3://virtual-hendi/web --recursive --acl public-read
 aws s3 cp dist/virtual-hendi s3://virtual-hendi/virtual-hendi --recursive --acl public-read
 echo "updating lambda function..."
