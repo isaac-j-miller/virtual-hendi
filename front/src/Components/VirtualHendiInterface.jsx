@@ -7,6 +7,7 @@ import Spinner from './Spinner'
 import Spectrum from './Spectrum'
 import axios from 'axios'
 import Instructions from './Instructions';
+import { Error } from './Error';
 
 export default class VirtualHendiInterface extends Component{
     constructor(props){
@@ -22,6 +23,7 @@ export default class VirtualHendiInterface extends Component{
             toggleFgTitle:'See Inside the Instrument',
             spectrum:"",
             loadingSpectrum:false,
+            spectrumError:false
         }
     }
     componentDidMount(){
@@ -45,13 +47,23 @@ export default class VirtualHendiInterface extends Component{
             ...this.lambdaRef.current.state
         }
         console.log(params);
-        const url = `${window.location.origin}/spectrum/${params.temperature}/${params.min_lambda}/${params.max_lambda}`;
+        const baseUrl = window.location.href.includes("localhost:3000") ? "http://localhost:3000/interpolator" : "https://bo5s06dtdj.execute-api.us-east-1.amazonaws.com/default"
+        const url = `${baseUrl}/${params.temperature}/${params.min_lambda}/${params.max_lambda}`;
         console.log("requesting spectrum");
         this.setState({loadingSpectrum:true});
-        axios.get(url).then(resp=>{
-            const spectrum = resp.data.data;
-            console.log("received spectrum");
-            this.setState({spectrum, loadingSpectrum:false});
+        axios.get(url).then(resp1=>{
+            const urlToUse = resp1.data.url;
+            axios.get(urlToUse).then(resp=>{
+                const spectrum = resp.data;
+                console.log("received spectrum");
+                this.setState({spectrum, loadingSpectrum:false, spectrumError: false});
+            }).catch(reason=>{
+                console.error("error loading spectrum:", reason);
+                this.setState({loadingSpectrum: false, spectrumError: true})
+            })
+        }).catch(reason=>{
+            console.error("error triggering lambda:", reason);
+            this.setState({loadingSpectrum: false, spectrumError: true})
         })
     }
     render(){
@@ -63,7 +75,7 @@ export default class VirtualHendiInterface extends Component{
                         <TemperatureController id='temperature-controller' parent={this} ref={this.tempRef}/>
                         <WavelengthController id='wavelength-controller' parent={this} ref={this.lambdaRef}/>
                         <button onClick={this.getSpectrum.bind(this)}>Run Spectrum</button>
-                        {this.state.loadingSpectrum? <Spinner/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
+                        {this.state.loadingSpectrum? <Spinner/> : this.state.spectrumError ? <Error/> : this.state.spectrum && <Spectrum data={this.state.spectrum}/>}
                         <Instructions></Instructions>
                     </div>
                     

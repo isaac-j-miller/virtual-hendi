@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import DigitalReadout from './DigitalReadout'
 import '../Style/AdjustableDigitalReadout.css'
 export default class AdjustableDigitalReadout extends Component{
     constructor(props){

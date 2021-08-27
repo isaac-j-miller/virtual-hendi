@@ -1,2 +1,7 @@
 virtual-hendi.pem
 docker/build/
+node_modules/
+deployment-package.zip
+lambda-dist/
+build/
+dist/
