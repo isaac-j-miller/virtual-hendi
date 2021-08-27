@@ -25,6 +25,7 @@ export default class VirtualHendiInterface extends Component{
             loadingSpectrum:false,
             spectrumError:false
         }
+        this.baseUrl = window.location.href.includes("localhost:3000") ? "http://localhost:3000" : "http://api.virtual-hendi.isaac-j-miller.com"
     }
     componentDidMount(){
         this._isMounted=true;
@@ -47,8 +48,7 @@ export default class VirtualHendiInterface extends Component{
             ...this.lambdaRef.current.state
         }
         console.log(params);
-        const baseUrl = window.location.href.includes("localhost:3000") ? "http://localhost:3000/interpolator" : "https://bo5s06dtdj.execute-api.us-east-1.amazonaws.com/default"
-        const url = `${baseUrl}/${params.temperature}/${params.min_lambda}/${params.max_lambda}`;
+        const url = `${this.baseUrl}/interpolator/${params.temperature}/${params.min_lambda}/${params.max_lambda}`;
         console.log("requesting spectrum");
         this.setState({loadingSpectrum:true});
         axios.get(url).then(resp1=>{

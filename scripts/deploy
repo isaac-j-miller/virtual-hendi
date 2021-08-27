@@ -3,5 +3,10 @@ set -euo pipefail
 echo "uploading to s3..."
 aws s3 cp dist/web s3://virtual-hendi/web --recursive --acl public-read
 aws s3 cp dist/virtual-hendi s3://virtual-hendi/virtual-hendi --recursive --acl public-read
-echo "updating lambda function..."
-aws lambda update-function-code --function-name interpolator --zip-file fileb://dist/lambda/deployment-package.zip
+echo "deploying with terraform..."
+export TF_VAR_VH_ROOT=$(scripts/get-root)
+cd terraform
+terraform init
+terraform validate
+terraform plan
+terraform apply
