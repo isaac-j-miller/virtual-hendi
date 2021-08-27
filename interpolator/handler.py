@@ -68,10 +68,13 @@ class Spectrum:
         self.data = self._load()
 
     def _load(self):
-        df = pd.read_csv(self.filename, sep="\t", names=[
-                         "wavenumber", "intensity"], dtype={"wavenumber": float, "intensity": float})
-        df = df.set_index(df.wavenumber)
-        return df
+        try:
+            df = pd.read_csv(self.filename, sep="\t", names=[
+                            "wavenumber", "intensity"], dtype={"wavenumber": float, "intensity": float})
+            df = df.set_index(df.wavenumber)
+            return df
+        except Exception as e:
+            raise FileNotFoundError(f"Could not find {self.filename}")
 
     def toString(self):
         dataToWrite = pd.DataFrame(data={
@@ -230,9 +233,9 @@ def lambda_handler(event, context):
             'headers': json.dumps({"Content-Type": "application/json"}),
             'body': json.dumps({"url": f"/{finalKey}"})
             }
-
+    spectraDir = os.path.join(os.path.dirname(__file__), "spectra")
     if temperature in temperatures:
-        outputPath = os.path.join("./spectra", f'OCS_{stringTemp}K.dat')
+        outputPath = os.path.join(spectraDir, f'OCS_{stringTemp}K.dat')
     else:
         try:
             manager.downloadFile(baseFilePath, outputPath)
@@ -246,13 +249,17 @@ def lambda_handler(event, context):
         for i in range(len(temperatures) - 1):
             temp1 = temperatures[i]
             temp2 = temperatures[i+1]
-            if temp1 < temperature <= temp2:
+            if temp1 <= temperature <= temp2:
                 lowerTemp = temp1
                 lowerF = os.path.join(
-                    "./spectra", f"OCS_{temp1}K.dat")
+                    spectraDir, f"OCS_{temp1}K.dat")
                 upperTemp = temp2
                 upperF = os.path.join(
-                    "./spectra", f"OCS_{temp2}K.dat")
+                    spectraDir, f"OCS_{temp2}K.dat")
+        if(lowerF is None):
+            raise Exception("Lower temp file is None!")
+        if(upperF is None):
+            raise Exception("Upper temp file is None!")
         spec1 = Spectrum(lowerF, upperTemp)
         spec2 = Spectrum(upperF, lowerTemp)
         interp = Interpolator(spec1, spec2, temperature)

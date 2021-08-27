@@ -1,6 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 VH_ROOT=$(scripts/get-root)
-# scripts/rebuild-front
+scripts/rebuild-front
 cd dev
-VH_ROOT="$VH_ROOT" ./node_modules/.bin/nodemon index.js
+VH_ROOT="$VH_ROOT" "./node_modules/.bin/nodemon" --config "${VH_ROOT}/nodemon.json" --watch "${VH_ROOT}/front" index.js 

@@ -56,7 +56,7 @@ export default class VirtualHendiInterface extends Component{
             axios.get(urlToUse).then(resp=>{
                 const spectrum = resp.data;
                 console.log("received spectrum");
-                this.setState({spectrum, loadingSpectrum:false});
+                this.setState({spectrum, loadingSpectrum:false, spectrumError: false});
             }).catch(reason=>{
                 console.error("error loading spectrum:", reason);
                 this.setState({loadingSpectrum: false, spectrumError: true})
