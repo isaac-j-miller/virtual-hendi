@@ -141,13 +141,13 @@ export default class Hendi extends Component{
     render(){
         return (
             <div className='hendi-box' id={this.props.id}>
-                <img className={`hendi-component ${this.state.bg?'':'transparent'}`} id='hendi-bg' src='/virtual-hendi/images/hendi-background.png'/>
-                <img className={`hendi-component ${this.state.fg?'':'transparent'}`} id='hendi-fg' src='/virtual-hendi/images/hendi-foreground.png'/>
-                <img className={`hendi-component ${this.state.ch?'':'transparent'}`} id='hendi-ch' src='/virtual-hendi/images/hendi-coldhead.png'/>
-                <img className={`hendi-component ${this.state.stark?'':'transparent'}`} id='hendi-stark' src='/virtual-hendi/images/hendi-stark.png'/>
-                <img className={`hendi-component ${this.state.quad?'':'transparent'}`} id='hendi-quad' src='/virtual-hendi/images/hendi-quad.png'/>
-                <img className={`hendi-component ${this.state.laserbeam?'':'transparent'}`} id='hendi-laserbeam' src='/virtual-hendi/images/hendi-laserbeam.png'/>
-                <img className={`hendi-component ${this.state.canister?'':'transparent'}`} id='hendi-ocs-canister' src='/virtual-hendi/images/hendi-ocs-canister.png' useMap='hendi-map'/>
+                <img alt="background" className={`hendi-component ${this.state.bg?'':'transparent'}`} id='hendi-bg' src='/virtual-hendi/images/hendi-background.png'/>
+                <img alt="foreground" className={`hendi-component ${this.state.fg?'':'transparent'}`} id='hendi-fg' src='/virtual-hendi/images/hendi-foreground.png'/>
+                <img alt="coldhead" className={`hendi-component ${this.state.ch?'':'transparent'}`} id='hendi-ch' src='/virtual-hendi/images/hendi-coldhead.png'/>
+                <img alt="stark cell" className={`hendi-component ${this.state.stark?'':'transparent'}`} id='hendi-stark' src='/virtual-hendi/images/hendi-stark.png'/>
+                <img alt="quadrupole" className={`hendi-component ${this.state.quad?'':'transparent'}`} id='hendi-quad' src='/virtual-hendi/images/hendi-quad.png'/>
+                <img alt="laserbeam" className={`hendi-component ${this.state.laserbeam?'':'transparent'}`} id='hendi-laserbeam' src='/virtual-hendi/images/hendi-laserbeam.png'/>
+                <img alt="OCS canister" className={`hendi-component ${this.state.canister?'':'transparent'}`} id='hendi-ocs-canister' src='/virtual-hendi/images/hendi-ocs-canister.png' useMap='hendi-map'/>
                 <Tooltip header={this.state.activeToolTipHeader} text={this.state.activeToolTipText} visible={this.state.toolTipActive}></Tooltip>
                 {this.getToolTipAreas()}
             </div>

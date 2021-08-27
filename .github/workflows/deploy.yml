@@ -3,7 +3,7 @@ on:
   push:
     branches: [master]
 
-name: Deploy to Amazon ECS
+name: Deploy to AWS
 
 jobs:
   deploy:
