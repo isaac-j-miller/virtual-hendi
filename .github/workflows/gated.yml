@@ -1,6 +1,6 @@
 on: "push"
 
-name: Deploy to AWS
+name: PR-CI-gated
 
 jobs:
   build:
