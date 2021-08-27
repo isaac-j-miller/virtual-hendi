@@ -1,7 +1,7 @@
 # Virtual HENDI spectrometer
 This web app is intended to provide users with an overview of the anatomy of a Helium Nanodroplet Isolation Spectrometer and to allow users to experiment with changing parameters such as the nozzle temperature to better understand the effect of these parameters on the spectra collected by the instrument. The user can simulate collecting spectra at a variety of nozzle temperatures ranging between 13.5 and 20 K.
 
-A demo of this application is currently hosted at [http://virtual-hendi.isaac-j-miller.com](http://virtual-hendi.isaac-j-miller.com).
+A demo of this application is currently hosted at [https://virtual-hendi.isaac-j-miller.com](https://virtual-hendi.isaac-j-miller.com).
 
 # Usage
 In order to view a tooltip about a component of the instrument, hover your mouse over it. In order to view inside the instrument, click the "See inside the instrument" button in the top right corner.
@@ -12,21 +12,32 @@ You may interact with the spectrum in a few ways:
  - Reset the view by double-clicking on the spectrum.
 
 # Running locally
-To run the application locally, after cloning the repository, cd into the root directory (i.e. `virtual-hendi/`) and run `scripts/check-env`. This ensures that all the necessary tools are installed. Then, run `scripts/start-local`. This builds the frontend and starts the server, which listens on port 3000. Once this script is running, you may visit the site locally at [http://localhost:3000](http://localhost:3000). 
-If you make changes to the front end while running the site in this way, you must re-build the frontend by running `scripts/rebuild-front`.
+To run the application locally, after cloning the repository, cd into the root directory and run `scripts/check-env`. This ensures that all the necessary tools are installed. Then, run `scripts/watch`. This builds the frontend and starts the dev server, which listens on port 3000. Once this script is running, you may visit the site locally at [http://localhost:3000](http://localhost:3000). 
+If you make changes while running the site in this way, nodemon will automatically rebuild.
 If running in a non-ubuntu environment, you may have to make changes to the `scripts/check-env` script, as it uses `apt` to install the necessary packages. The script does the following:
-- install Python 3.8
-- create a virtual environment in `back/src/python/env`
-- activate `env`
-- install python modules using `python -m pip install requirements.txt`, where `requirements.txt` is in `back/src/python`
-- install nodejs, npm
+- install nodejs, npm, and Python3.8
 - cd into `front` and run `npm install` to install the node modules there
-- cd into `back` and run `npm install` to install the node modules there
+- cd into `dev` and run `npm install` to install the node modules there
+- install python modules using `python -m pip install requirements.txt`, where `requirements.txt` is in `interpolator`
 Also, if running on windows, be sure to use [git bash](https://gitforwindows.org/), rather than powershell or cmd.
 
-# Running on a server
-This application requires Ubuntu 20.04 to run. An older or newer version might work, but it has only been tested on 20.04. After instantiating the server, run scripts/user-data in the # directory (`sudo -i`). Since the repo has not been cloned yet, you will need to copy the contents of this script to the server and then run it. This script clones the repo and configures the server to host the site. It configures nginx to listen on port 80 and redirect traffic to port 3000 so that the web app can be accessed from the server's public IP.
-To update the version on the server, ssh into the server and `sudo -i`. Then run `scripts/update-reload`. I have had some issues with the process not properly stopping, so it may be necessary to determine the PID of the process using port 3000 and manually kill it before running `scripts/update-reload`.
+# Architecture
+This project was originally hosted on an EC2 virtual server, but that was expensive to host. The new architecture is the following:
+The frontend is hosted as a static website in AWS s3 and distributed using AWS cloudfront, and the interpolator python function is now an AWS lambda function
+
+# Contribute
+Any contributions are welcome! I wrote this app fairly quickly as a favor for the [https://www.jmu.edu/chemistry/people/all-people/faculty/raston-paul.shtml](Raston Lab at JMU), so there are plenty of improvements/optimizations that can be done! The ones I can think of are as follow, in no particular order:
+- refactor the javascript code to use typescript
+- use prettier/eslint to automatically format files
+- split `interpolator/handler.py` into modules and figure out how to make this work with AWS lambda (the code was originally written in such a way that classes were in individual files, as they should be, but this doesn't seem to work well when uploaded as a lambda function)
+- move the base OCS spectrum files (in `interpolator/spectra`) to S3 and adjust the code in `interpolator/handler.py` accordingly
+- make this work with other molecules than OCS (would require data for molecules other than OCS)
+- add a title page or something that appears when the page is opened to explain the purpose of the site
+- make the app more mobile friendly
+- make the size of the spectrum adjust correctly (it doesn't fill the whole horizontal space it has)
+
+If you have any questions about contributing, or about the site/project in general, please don't hesitate to email me at <miller.isaac96@gmail.com>
 
 # Pull Requests
-If you would like to make changes to this repo, please submit a pull request. I will review it in as timely a manner as possible and then update the server that I'm using to host the demo at [http://virtual-hendi.isaac-j-miller.com](http://virtual-hendi.isaac-j-miller.com) to reflect the changes if I decide to merge the pull request.
+If you would like to make changes to this repo, please submit a pull request. I will review it in as timely a manner as possible, and since there is an automated deploy pipeline set up now, changes will be reflected within several minutes of merging the pull requests.
+

@@ -18,6 +18,6 @@ echo "copying lambda code..."
 mkdir dist/lambda
 cp -a interpolator/* dist/lambda
 cd dist/lambda
-rm -rf spectra/generated
+rm -rf spectra/generated || true
 zip -r deployment-package.zip .
 echo "created lambda deployment package in ./dist/lambda/deployment-package.zip"

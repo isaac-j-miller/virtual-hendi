@@ -1,14 +1,15 @@
 #!/bin/bash
 echo "$(whoami)"
 [ "$UID" -eq 0 ] || exec sudo "$0" "$@"
-export VH_ROOT="$HOME/virtual-hendi"
-sudo apt install -y nodejs npm python3 python3-venv
+export VH_ROOT=$(scripts/get-root)
+echo "installing nodejs, npm, and python3..."
+sudo apt install -y nodejs npm python3
 cd "$VH_ROOT/front"
+echo "installing frontend packages..."
 npm install
-cd "$VH_ROOT/back"
-npm install
-cd "$VH_ROOT/back/src/python"
-python3 -m venv env
-source env/bin/activate
+cd "$VH_ROOT/dev"
+echo "installing dev backend packages..."
+npm installing
+cd "$VH_ROOT/interpolator"
+echo "installing python packages..."
 python3 -m pip install -r requirements.txt
-cd "$VH_ROOT"
