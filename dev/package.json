@@ -1,0 +1,13 @@
+{
+  "name": "front",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1",
+    "mime-types": "^2.1.32",
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "watch": "nodemon index.js"
+  }
+}

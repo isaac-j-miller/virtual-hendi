@@ -1,5 +1,7 @@
-from logging import root
+import json
 import sys
+import os
+import pathlib
 from handler import lambda_handler
 
 if __name__ == "__main__":
@@ -7,6 +9,8 @@ if __name__ == "__main__":
     mn = sys.argv[2]
     mx = sys.argv[3]
     rootDir = sys.argv[4]
+    tmpDir = os.path.join(rootDir, "spectra/tmp")
+    pathlib.Path(tmpDir).mkdir(parents=True, exist_ok=True)
     ans = lambda_handler({
         "pathParameters": {
             "temperature": temperature,
@@ -16,4 +20,5 @@ if __name__ == "__main__":
         "cli": True,
         "rootDir": rootDir
     }, {})
-    print(ans)
+    jsonAns = json.dumps(ans)
+    print(jsonAns)

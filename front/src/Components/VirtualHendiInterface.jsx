@@ -47,7 +47,8 @@ export default class VirtualHendiInterface extends Component{
             ...this.lambdaRef.current.state
         }
         console.log(params);
-        const url = `https://bo5s06dtdj.execute-api.us-east-1.amazonaws.com/default/${params.temperature}/${params.min_lambda}/${params.max_lambda}`;
+        const baseUrl = window.location.href.includes("localhost:3000") ? "http://localhost:3000/interpolator" : "https://bo5s06dtdj.execute-api.us-east-1.amazonaws.com/default"
+        const url = `${baseUrl}/${params.temperature}/${params.min_lambda}/${params.max_lambda}`;
         console.log("requesting spectrum");
         this.setState({loadingSpectrum:true});
         axios.get(url).then(resp1=>{

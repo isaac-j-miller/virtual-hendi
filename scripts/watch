@@ -1,3 +1,6 @@
 #!/bin/bash
-scripts/rebuild-front
-nodemon --watch front --ext js,jsx --exec node --config nodemon.json --cwd $VIRTUAL_HENDI_ROOT "$@" back/bin/www 
+set -euo pipefail
+VH_ROOT=$(scripts/get-root)
+# scripts/rebuild-front
+cd dev
+VH_ROOT="$VH_ROOT" ./node_modules/.bin/nodemon index.js

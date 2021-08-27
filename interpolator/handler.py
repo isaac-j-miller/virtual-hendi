@@ -145,7 +145,7 @@ class FileManagerInterface(ABC):
 
 class FileManager(FileManagerInterface):
     def __init__(self, rootDir: str):
-        super(self)
+        super()
         self.rootDir = rootDir
     
     def doesExactFileExist(self, key: str) -> bool:
@@ -165,7 +165,7 @@ class FileManager(FileManagerInterface):
 
 class S3Manager(FileManagerInterface):
     def __init__(self, bucketName: str):
-        super(self)
+        super()
         self.s3 = boto3.resource('s3')
         self.bucket = self.s3.Bucket(bucketName)
     
