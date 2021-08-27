@@ -1,16 +1,12 @@
-on:
-  # Triggers the workflow on push events but only for the master branch
-  push:
-    branches: [master]
+on: "push"
 
-name: Deploy to AWS
+name: PR-CI-gated
 
 jobs:
-  deploy:
-    name: Deploy
+  build:
+    name: gated
     runs-on: ubuntu-latest
-    environment: production
-
+    environment: dev
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,8 +23,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - name: Run build
+      - name: validate tf config
+        run: | 
+          export VH_ROOT=$(scripts/get-root)
+          cd "${VH_ROOT}/terraform"
+          terraform init
+          terraform validate
+      
+      - name: validate build
         run: scripts/build
 
-      - name: Run deploy
-        run: scripts/deploy

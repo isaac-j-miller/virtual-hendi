@@ -176,7 +176,8 @@ class S3Manager(FileManagerInterface):
         try:
             self.s3.Object(self.bucket, key).load()
             return True
-        except Exception:
+        except Exception as e:
+            print("Exception raised while checking if file exists:", e)
             return False
 
     def writeFile(self, key: str, data: str):
@@ -234,6 +235,9 @@ def lambda_handler(event, context):
             'headers': json.dumps({"Content-Type": "application/json"}),
             'body': json.dumps({"url": f"/{finalKey}"})
             }
+    else:
+        print(f"Unable to find file matching {finalKey}")
+
     spectraDir = os.path.join(os.path.dirname(__file__), "spectra")
     if temperature in temperatures:
         outputPath = os.path.join(spectraDir, f'OCS_{stringTemp}K.dat')
@@ -264,11 +268,13 @@ def lambda_handler(event, context):
         spec1 = Spectrum(lowerF, upperTemp)
         spec2 = Spectrum(upperF, lowerTemp)
         interp = Interpolator(spec1, spec2, temperature)
+        print(f"Interpolating spectrum to {temperature}K, from {lowerTemp}K and {upperTemp}K spectra...")
         interp.interpolate()
         interp.write(outputPath)
         createdFile = True
     finalSpec = Spectrum(outputPath, temperature)
     baseFile = finalSpec.toString()
+    print(f"filtering spectrum to {mn}-{mx} cm-1...")
     response = finalSpec.filter(mn, mx)
     if createdFile:
         manager.writeFile(baseFilePath, baseFile)

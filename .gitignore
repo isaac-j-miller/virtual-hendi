@@ -5,3 +5,5 @@ deployment-package.zip
 lambda-dist/
 build/
 dist/
+terraform/.terraform/
+terraform/.terraform.lock.hcl
