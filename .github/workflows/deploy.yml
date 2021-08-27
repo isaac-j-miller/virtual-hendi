@@ -23,7 +23,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Run build
-        runs: scripts/build
+        run: scripts/build
 
       - name: Run deploy
-        runs: scripts/deploy
+        run: scripts/deploy
