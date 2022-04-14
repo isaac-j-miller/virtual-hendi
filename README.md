@@ -26,7 +26,7 @@ This project was originally hosted on an EC2 virtual server, but that was expens
 The frontend is hosted as a static website in AWS s3 and distributed using AWS cloudfront, and the interpolator python function is now an AWS lambda function
 
 # Contribute
-Any contributions are welcome! I wrote this app fairly quickly as a favor for the [https://www.jmu.edu/chemistry/people/all-people/faculty/raston-paul.shtml](Raston Lab at JMU), so there are plenty of improvements/optimizations that can be done! The ones I can think of are as follow, in no particular order:
+Any contributions are welcome! I wrote this app fairly quickly as a favor for the [Raston Lab at JMU](https://www.jmu.edu/chemistry/people/all-people/faculty/raston-paul.shtml), so there are plenty of improvements/optimizations that can be done! The ones I can think of are as follow, in no particular order:
 - refactor the javascript code to use typescript
 - use prettier/eslint to automatically format files
 - split `interpolator/handler.py` into modules and figure out how to make this work with AWS lambda (the code was originally written in such a way that classes were in individual files, as they should be, but this doesn't seem to work well when uploaded as a lambda function)
