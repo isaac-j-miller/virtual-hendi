@@ -33,7 +33,7 @@
     ]
   },
   "devDependencies": {
-    "react-scripts": "3.4.1"
+    "react-scripts": "5.0.1"
   },
   "homepage": "https://virtual-hendi.isaac-j-miller.com"
 }
