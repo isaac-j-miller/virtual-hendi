@@ -5,7 +5,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mime-types": "^2.1.32",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.20"
   },
   "scripts": {
     "watch": "nodemon index.js"
